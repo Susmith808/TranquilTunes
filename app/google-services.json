@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "474643763085",
+    "project_id": "tt-amb-gen",
+    "storage_bucket": "tt-amb-gen.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:474643763085:android:3c3cfd8d8873db5738f7c4",
+        "android_client_info": {
+          "package_name": "com.example.tranquiltunes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCEsllbjy6bbXj3r1QmBqOGOPzhX9HQh4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
