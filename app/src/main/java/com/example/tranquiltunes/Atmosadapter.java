@@ -25,16 +25,16 @@ public class Atmosadapter extends RecyclerView.Adapter<Atmosadapter.MyViewHolder
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-       View v = LayoutInflater.from(context).inflate(R.layout.soundscapeitems,parent,false);
+        View v = LayoutInflater.from(context).inflate(R.layout.soundscapeitems,parent,false);
         return new MyViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-    Func func=list.get(position);
-    holder.atmosname.setText(func.getAtmosname());
-    holder.atmosdescription.setText(func.getAtmosdescription());
+        Func func=list.get(position);
+        holder.atmosname.setText(func.getAtmosname());
+        holder.atmosdescription.setText(func.getAtmosdescription());
     }
 
     @Override

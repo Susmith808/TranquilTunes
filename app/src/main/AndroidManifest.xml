@@ -14,25 +14,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TranquilTunes"
         tools:targetApi="31">
-
-        <!-- Main Activity -->
+        <activity android:name=".Emotion"></activity>
+ <!-- Main Activity -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="Tranguiltunes">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Soundscape Activity -->
+        </activity> <!-- Soundscape Activity -->
         <activity
             android:name=".Soundscape"
             android:exported="true"
-            android:label="Soundscape">
-        </activity>
-
-
+            android:label="Soundscape" />
     </application>
+
 </manifest>

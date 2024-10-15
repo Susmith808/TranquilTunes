@@ -1,4 +1,6 @@
 package com.example.tranquiltunes;
+
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
@@ -15,47 +17,44 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class Soundscape extends AppCompatActivity {
-
-    RecyclerView recyclerView;
-    DatabaseReference database;
-    Atmosadapter atmosadapter;
-    ArrayList<Func> list;
+public class Emotion extends AppCompatActivity {
+    RecyclerView emorecyclerView;
+    DatabaseReference emodatabase;
+    Emoadapter emoadapter;
+    ArrayList<EmoFunc> emolist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_soundscape);
+        setContentView(R.layout.activity_emotion);
 
-        recyclerView=findViewById(R.id.soundscapelist);
-        database = FirebaseDatabase.getInstance().getReference("atmospheres");
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        emorecyclerView=findViewById(R.id.emotionlist);
+        emodatabase = FirebaseDatabase.getInstance().getReference("emotions");
+        emorecyclerView.setHasFixedSize(true);
+        emorecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        list = new ArrayList<>();
-        atmosadapter=new Atmosadapter(this,list);
-        recyclerView.setAdapter(atmosadapter);
+        emolist = new ArrayList<>();
+        emoadapter=new Emoadapter(this,emolist);
+        emorecyclerView.setAdapter(emoadapter);
 
-        database.addValueEventListener(new ValueEventListener() {
+        emodatabase.addValueEventListener(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
 
-                    Func func = dataSnapshot.getValue(Func.class);
-                    list.add(func);
+                    EmoFunc emofunc = dataSnapshot.getValue(EmoFunc.class);
+                    emolist.add(emofunc);
                 }
-                atmosadapter.notifyDataSetChanged();
+                emoadapter.notifyDataSetChanged();
             }
-
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError error){
 
             }
+
+
+
         });
-
-
     }
-
-
 }
