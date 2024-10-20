@@ -14,8 +14,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TranquilTunes"
         tools:targetApi="31">
-        <activity android:name=".Emotion"></activity>
- <!-- Main Activity -->
+        <activity
+            android:name=".Padadapter"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+        <activity
+            android:name=".PadFunc"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+        <activity
+            android:name=".Pad"
+            android:exported="false" />
+        <activity android:name=".Emotion" /> <!-- Main Activity -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
