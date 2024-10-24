@@ -68,5 +68,10 @@
 
 
         </LinearLayout>
+        <Button
+            android:id="@+id/chooseemobtnid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose Emotion" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

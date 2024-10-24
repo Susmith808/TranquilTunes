@@ -23,12 +23,13 @@ public class Pad extends AppCompatActivity {
     Padadapter padadapter;
     ArrayList<PadFunc> padlist;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_emotion);
+        setContentView(R.layout.activity_pad);
 
-        padrecyclerView=findViewById(R.id.emotionlist);
+        padrecyclerView=findViewById(R.id.padlist);
         paddatabase = FirebaseDatabase.getInstance().getReference("pads");
         padrecyclerView.setHasFixedSize(true);
         padrecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -50,6 +51,7 @@ public class Pad extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error){
+
 
             }
 

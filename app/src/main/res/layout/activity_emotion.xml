@@ -9,7 +9,7 @@
     tools:context=".Emotion">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/emotionlist"
+        android:id="@+id/emolist"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

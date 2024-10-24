@@ -4,17 +4,18 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class Emoadapter extends RecyclerView.Adapter<Emoadapter.MyViewHolder>{
+public class Emoadapter extends RecyclerView.Adapter<Emoadapter.MyViewHolder> {
 
     Context emocontext;
-
     ArrayList<EmoFunc> emolist;
 
     public Emoadapter(Context emocontext, ArrayList<EmoFunc> emolist) {
@@ -25,16 +26,31 @@ public class Emoadapter extends RecyclerView.Adapter<Emoadapter.MyViewHolder>{
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(emocontext).inflate(R.layout.emotionitems,parent,false);
+        View v = LayoutInflater.from(emocontext).inflate(R.layout.emotionitems, parent, false);
         return new MyViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        EmoFunc emofunc = emolist.get(position);
 
-        EmoFunc emofunc=emolist.get(position);
+        // Set the values to the text views
         holder.emoname.setText(emofunc.getEmoname());
         holder.emodescription.setText(emofunc.getEmodescription());
+
+        // Set up button click listener
+        holder.chooseemobtnid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Get the data of the item at this position
+                String emoName = emofunc.getEmoname();
+                String emoDescription = emofunc.getEmodescription();
+
+                // Here, you can use the strings (padName and padDescription)
+                // For example, you can show a Toast or use them in other logic
+                Toast.makeText(emocontext, "Emotion: " + emoName + "\nDescription: " + emoDescription, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -42,15 +58,18 @@ public class Emoadapter extends RecyclerView.Adapter<Emoadapter.MyViewHolder>{
         return emolist.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView emoname,emodescription ;
+        TextView emoname, emodescription;
+        Button chooseemobtnid;  // Button reference
 
-        public MyViewHolder(@NonNull View itemView){
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            emoname=itemView.findViewById(R.id.emonameid);
-            emodescription=itemView.findViewById(R.id.emodescid);
+            // Initialize the views
+            emoname = itemView.findViewById(R.id.emonameid);
+            emodescription = itemView.findViewById(R.id.emodescid);
+            chooseemobtnid = itemView.findViewById(R.id.chooseemobtnid);  // Initialize the button
         }
     }
 }

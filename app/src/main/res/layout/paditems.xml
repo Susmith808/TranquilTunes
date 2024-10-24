@@ -72,12 +72,14 @@
 
 
 
+
         </LinearLayout>
         <Button
             android:id="@+id/choosepadbtnid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Choose" />
+
 
 
 
