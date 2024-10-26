@@ -1,6 +1,7 @@
 package com.example.tranquiltunes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ public class Padadapter extends RecyclerView.Adapter<Padadapter.MyViewHolder> {
         holder.choosepadbtnid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 // Get the data of the item at this position
                 String padName = padfunc.getPadname();
                 String padDescription = padfunc.getPaddescription();

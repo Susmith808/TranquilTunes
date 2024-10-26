@@ -36,16 +36,16 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="Tranguiltunes">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity> <!-- Soundscape Activity -->
         <activity
             android:name=".Soundscape"
             android:exported="true"
-            android:label="Soundscape" />
+            android:label="Soundscape"> <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter></activity>
+
     </application>
 
 </manifest>

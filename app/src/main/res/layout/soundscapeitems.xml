@@ -68,5 +68,10 @@
 
 
         </LinearLayout>
+        <Button
+            android:id="@+id/chooseatmosbtnid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -1,6 +1,7 @@
 package com.example.tranquiltunes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,8 @@ public class Emoadapter extends RecyclerView.Adapter<Emoadapter.MyViewHolder> {
         holder.chooseemobtnid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(emocontext, Soundscape.class);
+                emocontext.startActivity(intent);
                 // Get the data of the item at this position
                 String emoName = emofunc.getEmoname();
                 String emoDescription = emofunc.getEmodescription();
