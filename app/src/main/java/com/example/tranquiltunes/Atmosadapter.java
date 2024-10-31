@@ -2,6 +2,7 @@ package com.example.tranquiltunes;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,7 @@ public class Atmosadapter extends RecyclerView.Adapter<Atmosadapter.MyViewHolder
         holder.chooseatmosbtnid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(context, Pad.class);
 
                 context.startActivity(intent);
@@ -51,6 +53,13 @@ public class Atmosadapter extends RecyclerView.Adapter<Atmosadapter.MyViewHolder
                 String atmosdescription = func.getAtmosdescription();
                 intent.putExtra("atmosname", atmosname); // Pass atmosname
                 context.startActivity(intent);
+
+//Storing username test
+                SharedPreferences sharedATMOSPreferences = context.getSharedPreferences("AtmosPreferences", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedATMOSPreferences.edit();
+                editor.putString("selectedAtmosname", atmosname);
+                editor.apply();
+
 
                 // Here, you can use the strings (padName and padDescription)
                 // For example, you can show a Toast or use them in other logic

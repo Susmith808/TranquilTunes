@@ -5,34 +5,31 @@ import android.media.MediaPlayer;
 import android.widget.Toast;
 import java.util.HashMap;
 
-public class Atmosengine {
+public class Padengine {
     private static final HashMap<String, MediaPlayer> mediaPlayers = new HashMap<>();
 
-    // New method to get the audio URL based on atmosphere name
-    public static String getAudioUrl(String atmosname) {
 
-        switch (atmosname) {
-            case "forest":
-                return "https://firebasestorage.googleapis.com/v0/b/tt-amb-gen.appspot.com/o/audiodata%2Fparanoid.mp3?alt=media&token=06d64c53-574f-4e0c-84eb-c8769e6969dc";
-            case "beach":
-                return "https://firebasestorage.googleapis.com/v0/b/tt-amb-gen.appspot.com/o/audiodata%2Fparanoid.mp3?alt=media&token=06d64c53-574f-4e0c-84eb-c8769e6969dc";
+    public static void playAudio(Context context, String padname) {
+        String audioUrl;
+
+        // Choose audio URL based on atmosname
+        switch (padname) {
+            case "space":
+                audioUrl = "https://firebasestorage.googleapis.com/v0/b/tt-amb-gen.appspot.com/o/audiodata%2Faurora.mp3?alt=media&token=b87acdf6-424e-4beb-9a34-57a5f23a82eb";
+                break;
+            case "lofi":
+                audioUrl = "https://firebasestorage.googleapis.com/v0/b/tt-amb-gen.appspot.com/o/audiodata%2Faurora.mp3?alt=media&token=b87acdf6-424e-4beb-9a34-57a5f23a82eb";
+                break;
             case "mountain":
-                return "https://firebasestorage.googleapis.com/v0/b/tt-amb-gen.appspot.com/o/audiodata%2Fparanoid.mp3?alt=media&token=06d64c53-574f-4e0c-84eb-c8769e6969dc";
+                audioUrl = "https://firebasestorage.googleapis.com/v0/b/tt-amb-gen.appspot.com/o/audiodata%2Faurora.mp3?alt=media&token=b87acdf6-424e-4beb-9a34-57a5f23a82eb";
+                break;
             default:
-                return null; // Return null if the atmosphere name is invalid
-        }
-    }
-
-    public static void playAudio(Context context, String atmosname) {
-        String audioUrl = getAudioUrl(atmosname); // Use the new method to get the URL
-
-        if (audioUrl == null) {
-            Toast.makeText(context, "Invalid choice", Toast.LENGTH_SHORT).show();
-            return;
+                Toast.makeText(context, "Invalid choice", Toast.LENGTH_SHORT).show();
+                return;
         }
 
         // Check if MediaPlayer for this atmosname already exists
-        MediaPlayer mediaPlayer = mediaPlayers.get(atmosname);
+        MediaPlayer mediaPlayer = mediaPlayers.get(padname);
         if (mediaPlayer != null) {
             // If playing, return to avoid reloading
             if (mediaPlayer.isPlaying()) return;
@@ -52,7 +49,7 @@ public class Atmosengine {
             });
 
             // Store in HashMap
-            mediaPlayers.put(atmosname, mediaPlayer);
+            mediaPlayers.put(padname, mediaPlayer);
 
         } catch (Exception e) {
             Toast.makeText(context, "Failed to load audio", Toast.LENGTH_SHORT).show();

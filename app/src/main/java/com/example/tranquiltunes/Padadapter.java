@@ -2,6 +2,7 @@ package com.example.tranquiltunes;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,12 @@ public class Padadapter extends RecyclerView.Adapter<Padadapter.MyViewHolder> {
                 String padDescription = padfunc.getPaddescription();
                 intent.putExtra("padname", padName); // Pass atmosname
                 padcontext.startActivity(intent);
+
+                //Storing username test
+                SharedPreferences sharedPADSPreferences = padcontext.getSharedPreferences("PadsPreferences", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPADSPreferences.edit();
+                editor.putString("selectedpadName", padName);
+                editor.apply();
 
                 // Here, you can use the strings (padName and padDescription)
                 // For example, you can show a Toast or use them in other logic
