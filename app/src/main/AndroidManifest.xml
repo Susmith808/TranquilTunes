@@ -15,6 +15,9 @@
         android:theme="@style/Theme.TranquilTunes"
         tools:targetApi="31">
         <activity
+            android:name=".Padengine"
+            android:exported="false" />
+        <activity
             android:name=".PadDetailActivity"
             android:exported="false" />
         <activity
@@ -35,17 +38,17 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="Tranguiltunes">
-
-        </activity> <!-- Soundscape Activity -->
+            android:label="Tranguiltunes"></activity> <!-- Soundscape Activity -->
         <activity
             android:name=".Soundscape"
             android:exported="true"
-            android:label="Soundscape"> <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
+            android:label="Soundscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

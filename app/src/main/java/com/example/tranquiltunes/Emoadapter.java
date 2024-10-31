@@ -48,6 +48,8 @@ public class Emoadapter extends RecyclerView.Adapter<Emoadapter.MyViewHolder> {
                 // Get the data of the item at this position
                 String emoName = emofunc.getEmoname();
                 String emoDescription = emofunc.getEmodescription();
+                intent.putExtra("atmosname", emoName); // Pass atmosname
+                emocontext.startActivity(intent);
 
                 // Here, you can use the strings (padName and padDescription)
                 // For example, you can show a Toast or use them in other logic

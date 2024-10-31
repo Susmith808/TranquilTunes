@@ -43,10 +43,14 @@ public class Padadapter extends RecyclerView.Adapter<Padadapter.MyViewHolder> {
         holder.choosepadbtnid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(padcontext, MainActivity.class);
+                padcontext.startActivity(intent);
 
                 // Get the data of the item at this position
                 String padName = padfunc.getPadname();
                 String padDescription = padfunc.getPaddescription();
+                intent.putExtra("padname", padName); // Pass atmosname
+                padcontext.startActivity(intent);
 
                 // Here, you can use the strings (padName and padDescription)
                 // For example, you can show a Toast or use them in other logic

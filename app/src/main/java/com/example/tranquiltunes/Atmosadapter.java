@@ -43,7 +43,7 @@ public class Atmosadapter extends RecyclerView.Adapter<Atmosadapter.MyViewHolder
         holder.chooseatmosbtnid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, MainActivity.class);
+                Intent intent = new Intent(context, Pad.class);
 
                 context.startActivity(intent);
                 // Get the data of the item at this position
