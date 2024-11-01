@@ -22,41 +22,48 @@ public class Pad extends AppCompatActivity {
     DatabaseReference paddatabase;
     Padadapter padadapter;
     ArrayList<PadFunc> padlist;
+    ArrayList<PadFunc> filteredPadList;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pad);
 
-        padrecyclerView=findViewById(R.id.padlist);
+        padrecyclerView = findViewById(R.id.padlist);
         paddatabase = FirebaseDatabase.getInstance().getReference("pads");
         padrecyclerView.setHasFixedSize(true);
         padrecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         padlist = new ArrayList<>();
-        padadapter=new Padadapter(this,padlist);
+        filteredPadList = new ArrayList<>();
+        padadapter = new Padadapter(this, filteredPadList);
         padrecyclerView.setAdapter(padadapter);
 
+        // Retrieve the selected pad category from intent
+        String selectedEmotion = getIntent().getStringExtra("selectedEmotion");
+
         paddatabase.addValueEventListener(new ValueEventListener() {
-            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                padlist.clear();
+                filteredPadList.clear();
 
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     PadFunc padfunc = dataSnapshot.getValue(PadFunc.class);
                     padlist.add(padfunc);
+
+                    // Filter pads that match the selected category
+                    if (padfunc != null && padfunc.getPaddescription().equalsIgnoreCase(selectedEmotion)) {
+                        filteredPadList.add(padfunc);
+                    }
                 }
                 padadapter.notifyDataSetChanged();
             }
+
             @Override
-            public void onCancelled(@NonNull DatabaseError error){
-
-
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle possible errors here
             }
-
-
-
         });
     }
 }

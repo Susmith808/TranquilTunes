@@ -43,12 +43,12 @@ public class Emoadapter extends RecyclerView.Adapter<Emoadapter.MyViewHolder> {
         holder.chooseemobtnid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(emocontext, Soundscape.class);
+                Intent intent = new Intent(emocontext, Pad.class);
                 emocontext.startActivity(intent);
                 // Get the data of the item at this position
                 String emoName = emofunc.getEmoname();
                 String emoDescription = emofunc.getEmodescription();
-                intent.putExtra("atmosname", emoName); // Pass atmosname
+                intent.putExtra("selectedEmotion", emoName); // Pass atmosname
                 emocontext.startActivity(intent);
 
                 // Here, you can use the strings (padName and padDescription)
