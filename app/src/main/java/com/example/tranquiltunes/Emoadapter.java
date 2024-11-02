@@ -48,6 +48,9 @@ public class Emoadapter extends RecyclerView.Adapter<Emoadapter.MyViewHolder> {
                 // Get the data of the item at this position
                 String emoName = emofunc.getEmoname();
                 String emoDescription = emofunc.getEmodescription();
+
+                GlobalData.getInstance().setSelectedEmotion(emoName);
+
                 intent.putExtra("selectedEmotion", emoName); // Pass atmosname
                 emocontext.startActivity(intent);
 

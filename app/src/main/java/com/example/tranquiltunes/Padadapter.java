@@ -44,7 +44,7 @@ public class Padadapter extends RecyclerView.Adapter<Padadapter.MyViewHolder> {
         holder.choosepadbtnid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(padcontext, MainActivity.class);
+                Intent intent = new Intent(padcontext, Soundscape.class);
                 padcontext.startActivity(intent);
 
                 // Get the data of the item at this position

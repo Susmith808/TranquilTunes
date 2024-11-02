@@ -15,6 +15,29 @@
         android:theme="@style/Theme.TranquilTunes"
         tools:targetApi="31">
         <activity
+            android:name=".GlobalData"
+            android:exported="false" />
+        <activity
+            android:name=".SoundPlayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MusicGeneratorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Instrumentadapter"
+            android:exported="false" />
+        <activity
+            android:name=".InstrumentFunc"
+            android:exported="true"
+            tools:ignore="Instantiatable" />
+        <activity
+            android:name=".InstrumentAdapter"
+            android:exported="true"
+            tools:ignore="Instantiatable" />
+        <activity
+            android:name=".Instrument"
+            android:exported="true" />
+        <activity
             android:name=".Emotion"
             android:exported="true"
             android:label="Emotion">
@@ -24,17 +47,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
         <activity
             android:name=".Padengine"
             android:exported="false" />
         <activity
             android:name=".PadDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Engine"
             android:exported="false" />
         <activity
             android:name=".Padadapter"
@@ -46,8 +63,7 @@
             tools:ignore="Instantiatable" />
         <activity
             android:name=".Pad"
-            android:exported="false" />
-         <!-- Main Activity -->
+            android:exported="false" /> <!-- Main Activity -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -55,8 +71,7 @@
         <activity
             android:name=".Soundscape"
             android:exported="true"
-            android:label="Soundscape"/>
-
+            android:label="Soundscape" />
     </application>
 
 </manifest>
