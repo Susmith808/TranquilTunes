@@ -77,7 +77,7 @@ public class SoundPlayActivity extends AppCompatActivity {
         );
     }
 
-    private void startPlayback() {
+    public void startPlayback() {
         if (!noteUrls.isEmpty()) {
             isPlaying = true;
             playButton.setText("Stop");

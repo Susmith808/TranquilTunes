@@ -46,7 +46,7 @@ public class InstrumentAdapter extends RecyclerView.Adapter<InstrumentAdapter.My
             Toast.makeText(context, "Selected Instrument: " + selectedInstrument, Toast.LENGTH_SHORT).show();
 
             // Now you can start the next activity
-            Intent intent = new Intent(context, SoundPlayActivity.class);
+            Intent intent = new Intent(context, MainActivity.class);
             context.startActivity(intent);
         });
     }
