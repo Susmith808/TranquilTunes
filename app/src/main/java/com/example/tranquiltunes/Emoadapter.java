@@ -6,11 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -38,6 +41,15 @@ public class Emoadapter extends RecyclerView.Adapter<Emoadapter.MyViewHolder> {
         // Set the values to the text views
         holder.emoname.setText(emofunc.getEmoname());
         holder.emodescription.setText(emofunc.getEmodescription());
+
+
+        Glide.with(emocontext)
+                .load(emofunc.getImageURL())
+                .centerCrop()
+                .into(holder.emobackgroundImage);
+
+
+
 
         // Set up button click listener
         holder.chooseemobtnid.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +81,8 @@ public class Emoadapter extends RecyclerView.Adapter<Emoadapter.MyViewHolder> {
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView emoname, emodescription;
-        Button chooseemobtnid;  // Button reference
+        Button chooseemobtnid;
+        ImageView emobackgroundImage;// Button reference
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -78,6 +91,8 @@ public class Emoadapter extends RecyclerView.Adapter<Emoadapter.MyViewHolder> {
             emoname = itemView.findViewById(R.id.emonameid);
             emodescription = itemView.findViewById(R.id.emodescid);
             chooseemobtnid = itemView.findViewById(R.id.chooseemobtnid);  // Initialize the button
+            emobackgroundImage = itemView.findViewById(R.id.emobackgroundImageid);  // Initialize ImageView
+
         }
     }
 }
