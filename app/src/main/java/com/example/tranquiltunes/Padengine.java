@@ -15,10 +15,10 @@ public class Padengine {
         // Choose audio URL based on atmosname
         switch (padname) {
             case "space":
-                audioUrl = "https://firebasestorage.googleapis.com/v0/b/tt-amb-gen.appspot.com/o/audiodata%2Faurora.mp3?alt=media&token=b87acdf6-424e-4beb-9a34-57a5f23a82eb";
+                audioUrl = "https://firebasestorage.googleapis.com/v0/b/tt-amb-gen.appspot.com/o/audiodata%2FHappy_C%20Major-Pad-(Spark%2CMeditate).mp3?alt=media&token=0dc93261-099c-4da2-9a77-d4262b893701";
                 break;
-            case "lofi":
-                audioUrl = "https://firebasestorage.googleapis.com/v0/b/tt-amb-gen.appspot.com/o/audiodata%2Faurora.mp3?alt=media&token=b87acdf6-424e-4beb-9a34-57a5f23a82eb";
+            case "synth":
+                audioUrl = "https://firebasestorage.googleapis.com/v0/b/tt-amb-gen.appspot.com/o/audiodata%2FHappy-C%20Majo-Pad(Timetexture%2CLunarEclipse).mp3?alt=media&token=9dddd748-8bd0-4a69-9cc3-0afc825e47b7";
                 break;
             case "mountain":
                 audioUrl = "https://firebasestorage.googleapis.com/v0/b/tt-amb-gen.appspot.com/o/audiodata%2Faurora.mp3?alt=media&token=b87acdf6-424e-4beb-9a34-57a5f23a82eb";

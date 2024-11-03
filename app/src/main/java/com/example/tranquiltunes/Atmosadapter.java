@@ -7,11 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -40,29 +43,30 @@ public class Atmosadapter extends RecyclerView.Adapter<Atmosadapter.MyViewHolder
         holder.atmosname.setText(func.getAtmosname());
         holder.atmosdescription.setText(func.getAtmosdescription());
 
+        // Load image from URL using Glide
+        Glide.with(context)
+                .load(func.getImageURL()) // Assuming getImageURL() provides the image URL from Firebase
+                .centerCrop()
+                .into(holder.atmosImageView);
+
         // Set up button click listener
         holder.chooseatmosbtnid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Intent intent = new Intent(context, Instrument.class);
-
-                context.startActivity(intent);
-                // Get the data of the item at this position
                 String atmosname = func.getAtmosname();
                 String atmosdescription = func.getAtmosdescription();
                 intent.putExtra("atmosname", atmosname); // Pass atmosname
                 context.startActivity(intent);
 
-//Storing username test
+                // Store selected atmosname in SharedPreferences
                 SharedPreferences sharedATMOSPreferences = context.getSharedPreferences("AtmosPreferences", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedATMOSPreferences.edit();
                 editor.putString("selectedAtmosname", atmosname);
                 editor.apply();
 
-
-                // Here, you can use the strings (padName and padDescription)
-                // For example, you can show a Toast or use them in other logic
+                // Display a Toast message with details
                 Toast.makeText(context, "Soundscape: " + atmosname + "\nDescription: " + atmosdescription, Toast.LENGTH_SHORT).show();
             }
         });
@@ -76,7 +80,8 @@ public class Atmosadapter extends RecyclerView.Adapter<Atmosadapter.MyViewHolder
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView atmosname, atmosdescription;
-        Button chooseatmosbtnid;  // Button reference
+        ImageView atmosImageView; // ImageView reference for the image
+        Button chooseatmosbtnid;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -84,7 +89,8 @@ public class Atmosadapter extends RecyclerView.Adapter<Atmosadapter.MyViewHolder
             // Initialize the views
             atmosname = itemView.findViewById(R.id.atmosnameid);
             atmosdescription = itemView.findViewById(R.id.atmosdescid);
-            chooseatmosbtnid= itemView.findViewById(R.id.chooseatmosbtnid);  // Initialize the button
+            atmosImageView = itemView.findViewById(R.id.atmosImageView); // Initialize ImageView
+            chooseatmosbtnid = itemView.findViewById(R.id.chooseatmosbtnid);  // Initialize the button
         }
     }
 }
