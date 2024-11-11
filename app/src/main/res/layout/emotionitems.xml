@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="200dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="8dp"
     app:cardCornerRadius="8dp"
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:alpha="0.5" /> <!-- Optional transparency -->
+         /> <!-- Optional transparency -->
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -27,24 +27,25 @@
             android:orientation="horizontal">
 
 
-
             <TextView
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
+                android:fontFamily="@font/ubuntu_light"
                 android:text="Emotion:"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20sp"
-                android:textStyle="bold"/>
+                 />
 
             <TextView
                 android:id="@+id/emonameid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
+                android:fontFamily="@font/ubuntu_light"
                 android:text="Happy"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -60,27 +61,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
+                android:fontFamily="@font/ubuntu_light"
                 android:text="Description:"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                 />
 
             <TextView
                 android:id="@+id/emodescid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
+                android:fontFamily="@font/ubuntu_light"
                 android:text="Who hates to be Happy"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                 />
 
 
         </LinearLayout>
+
         <Button
             android:id="@+id/chooseemobtnid"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/ubuntu_light"
             android:text="Choose Emotion" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="200dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="8dp"
     app:cardCornerRadius="8dp"
     android:layout_margin="16dp">
+
+    <ImageView
+        android:id="@+id/padbackgroundImageid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+         /> <!-- Optional transparency to match the first layout -->
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -20,22 +27,23 @@
             android:orientation="horizontal">
 
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="Pads:"
-                android:textColor="@color/black"
+                android:fontFamily="@font/ubuntu_light"
+                android:text="Musicscape:"
+                android:textColor="@color/white"
                 android:textSize="20sp"
-                android:textStyle="bold"/>
+                />
 
             <TextView
                 android:id="@+id/padnameid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
+                android:fontFamily="@font/ubuntu_light"
                 android:text="Space"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -47,42 +55,32 @@
             android:orientation="horizontal">
 
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
+                android:fontFamily="@font/ubuntu_light"
                 android:text="Emotion:"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20sp"
-                android:textStyle="bold" />
-
-
+                 />
 
             <TextView
                 android:id="@+id/paddescid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
+                android:fontFamily="@font/ubuntu_light"
                 android:text="An Astronaut in space with a laptop"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20sp"
-                android:textStyle="bold" />
-
-
-
-
-
-
+                />
         </LinearLayout>
+
         <Button
             android:id="@+id/choosepadbtnid"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Choose" />
-
-
-
-
+            android:fontFamily="@font/ubuntu_light"
+            android:text=" Choose Musicscape" />
     </LinearLayout>
-
 </androidx.cardview.widget.CardView>

@@ -7,17 +7,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 public class Padadapter extends RecyclerView.Adapter<Padadapter.MyViewHolder> {
 
-     Context padcontext;
+    Context padcontext;
     ArrayList<PadFunc> padlist;
 
     public Padadapter(Context padcontext, ArrayList<PadFunc> padlist) {
@@ -40,27 +43,32 @@ public class Padadapter extends RecyclerView.Adapter<Padadapter.MyViewHolder> {
         holder.padname.setText(padfunc.getPadname());
         holder.paddescription.setText(padfunc.getPaddescription());
 
+        // Load image if PadFunc has an image URL (assumes `getImageURL` is added to PadFunc)
+        Glide.with(padcontext)
+                .load(padfunc.getImageURL())
+                .centerCrop()
+                .into(holder.padbackgroundImage);
+
         // Set up button click listener
         holder.choosepadbtnid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(padcontext, Soundscape.class);
-                padcontext.startActivity(intent);
 
-                // Get the data of the item at this position
+                // Pass pad name
                 String padName = padfunc.getPadname();
                 String padDescription = padfunc.getPaddescription();
-                intent.putExtra("padname", padName); // Pass atmosname
+
+                intent.putExtra("padname", padName);
                 padcontext.startActivity(intent);
 
-                //Storing username test
+                // Store the selected pad name in SharedPreferences
                 SharedPreferences sharedPADSPreferences = padcontext.getSharedPreferences("PadsPreferences", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPADSPreferences.edit();
                 editor.putString("selectedpadName", padName);
                 editor.apply();
 
-                // Here, you can use the strings (padName and padDescription)
-                // For example, you can show a Toast or use them in other logic
+                // Show a Toast message
                 Toast.makeText(padcontext, "Pad Name: " + padName + "\nDescription: " + padDescription, Toast.LENGTH_SHORT).show();
             }
         });
@@ -74,7 +82,8 @@ public class Padadapter extends RecyclerView.Adapter<Padadapter.MyViewHolder> {
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView padname, paddescription;
-        Button choosepadbtnid;  // Button reference
+        Button choosepadbtnid;
+        ImageView padbackgroundImage; // Added ImageView reference
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -82,7 +91,8 @@ public class Padadapter extends RecyclerView.Adapter<Padadapter.MyViewHolder> {
             // Initialize the views
             padname = itemView.findViewById(R.id.padnameid);
             paddescription = itemView.findViewById(R.id.paddescid);
-            choosepadbtnid = itemView.findViewById(R.id.choosepadbtnid);  // Initialize the button
+            choosepadbtnid = itemView.findViewById(R.id.choosepadbtnid);
+            padbackgroundImage = itemView.findViewById(R.id.padbackgroundImageid); // Initialize ImageView
         }
     }
 }

@@ -3,6 +3,7 @@ package com.example.tranquiltunes;
 public class InstrumentFunc {
     private String instrumentname;
     private String instrumentdescription;
+    private String imageURL;
 
     public InstrumentFunc() {
         // Default constructor required for calls to DataSnapshot.getValue(InstrumentFunc.class)
@@ -19,5 +20,8 @@ public class InstrumentFunc {
 
     public String getInstrumentdescription() {
         return instrumentdescription;
+    }
+        public String getImageURL() {
+            return imageURL;
     }
 }

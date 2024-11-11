@@ -12,8 +12,21 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TranquilTunes"
+        android:theme="@style/Theme.YourApp.NoActionBar.FullScreen"
         tools:targetApi="31">
+        <activity
+            android:name=".WelcomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".GlobalData"
             android:exported="false" />
@@ -40,13 +53,8 @@
         <activity
             android:name=".Emotion"
             android:exported="true"
-            android:label="Emotion">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:label="Emotion" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".Padengine"
             android:exported="false" />
