@@ -68,7 +68,7 @@ public class Emoadapter extends RecyclerView.Adapter<Emoadapter.MyViewHolder> {
 
                 // Here, you can use the strings (padName and padDescription)
                 // For example, you can show a Toast or use them in other logic
-                Toast.makeText(emocontext, "Emotion: " + emoName + "\nDescription: " + emoDescription, Toast.LENGTH_SHORT).show();
+
             }
         });
     }

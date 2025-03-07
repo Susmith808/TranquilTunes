@@ -78,6 +78,7 @@
 
         <Button
             android:id="@+id/choosepadbtnid"
+            android:background="@drawable/button_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/ubuntu_light"

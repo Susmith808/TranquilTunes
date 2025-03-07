@@ -69,7 +69,7 @@ public class Padadapter extends RecyclerView.Adapter<Padadapter.MyViewHolder> {
                 editor.apply();
 
                 // Show a Toast message
-                Toast.makeText(padcontext, "Pad Name: " + padName + "\nDescription: " + padDescription, Toast.LENGTH_SHORT).show();
+
             }
         });
     }

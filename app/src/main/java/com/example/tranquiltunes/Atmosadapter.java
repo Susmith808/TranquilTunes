@@ -67,7 +67,7 @@ public class Atmosadapter extends RecyclerView.Adapter<Atmosadapter.MyViewHolder
                 editor.apply();
 
                 // Display a Toast message with details
-                Toast.makeText(context, "Soundscape: " + atmosname + "\nDescription: " + atmosdescription, Toast.LENGTH_SHORT).show();
+
             }
         });
     }

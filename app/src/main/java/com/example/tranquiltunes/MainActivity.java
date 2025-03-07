@@ -1,5 +1,8 @@
 package com.example.tranquiltunes;
 
+import static androidx.core.app.ActivityCompat.finishAffinity;
+
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -7,6 +10,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.storage.FirebaseStorage;
@@ -18,39 +23,61 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int MAX_STREAMS = 3; // Maximum concurrent streams
+    private static final int MAX_STREAMS = 3;
     private ArrayList<String> noteUrls = new ArrayList<>();
-    private ArrayList<MediaPlayer> activePlayers = new ArrayList<>(); // Track active MediaPlayer instances
+    private ArrayList<MediaPlayer> activePlayers = new ArrayList<>();
     private Handler handler = new Handler();
     private Random random = new Random();
     private String selectedEmotion;
     private String selectedInstrument;
 
     private Button playButton;
+    private Button buttonActivity1, buttonActivity2, buttonActivity3,buttonActivity4,exitbutton; // Buttons for navigating to activities
     private boolean isPlaying = false;
+
+    private void showExitDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Exit")
+                .setMessage("Do you want to exit the app?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    // Close the app
+                    finishAffinity(); // Close all activities in the stack
+                    System.exit(0); // Optionally, close the application process
+                })
+                .setNegativeButton("No", (dialog, which) -> {
+                    // Dismiss the dialog and stay in the app
+                    dialog.dismiss();
+                })
+                .show();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        playButton = findViewById(R.id.button);
 
-        // Retrieve emotion and instrument from GlobalData (or SharedPreferences as needed)
+
+
+        playButton = findViewById(R.id.button);
+        buttonActivity1 = findViewById(R.id.changeemo);
+        buttonActivity2 = findViewById(R.id.changepad);
+        buttonActivity3 = findViewById(R.id.changeatmos);
+        buttonActivity4 = findViewById(R.id.changeinst);
+        exitbutton = findViewById(R.id.exit);
+
         selectedEmotion = GlobalData.getInstance().getSelectedEmotion();
         selectedInstrument = GlobalData.getInstance().getSelectedInstrument();
 
-        // Fetch note URLs from Firebase Storage
         fetchNoteUrlsFromStorage();
 
-        // Retrieve atmos name and pad name from SharedPreferences
         SharedPreferences sharedATMOSPreferences = getSharedPreferences("AtmosPreferences", MODE_PRIVATE);
         String atmosName = sharedATMOSPreferences.getString("selectedAtmosname", "defaultAtmos");
 
         SharedPreferences sharedPADSPreferences = getSharedPreferences("PadsPreferences", MODE_PRIVATE);
         String padName = sharedPADSPreferences.getString("selectedpadName", "defaultPads");
 
-        // Set up play button to play audio from Atmosengine, Padengine, and Firebase notes
         playButton.setOnClickListener(v -> {
             if (isPlaying) {
                 stopPlayback();
@@ -60,6 +87,43 @@ public class MainActivity extends AppCompatActivity {
                 startPlayback();
             }
         });
+
+
+
+
+        // Set up button click listeners for the three new buttons
+        buttonActivity1.setOnClickListener(v -> {
+            stopPlayback();
+            Intent intent = new Intent(MainActivity.this, Emotion.class);
+            startActivity(intent);
+        });
+
+        buttonActivity2.setOnClickListener(v -> {
+            stopPlayback();
+            Intent intent = new Intent(MainActivity.this, Pad.class);
+            startActivity(intent);
+        });
+
+        buttonActivity3.setOnClickListener(v -> {
+            stopPlayback();
+            Intent intent = new Intent(MainActivity.this, Soundscape.class);
+            startActivity(intent);
+        });
+
+        buttonActivity4.setOnClickListener(v -> {
+            stopPlayback();
+            Intent intent = new Intent(MainActivity.this, Instrument.class);
+            startActivity(intent);
+        });
+
+
+        exitbutton.setOnClickListener(view -> showExitDialog());
+
+
+
+
+
+
     }
 
     private void fetchNoteUrlsFromStorage() {
@@ -76,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                 item.getDownloadUrl().addOnSuccessListener(uri -> {
                     noteUrls.add(uri.toString());
                     if (noteUrls.size() == listResult.getItems().size()) {
-                        Toast.makeText(this, "Notes loaded successfully.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Ambient Music generated successfully.", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -100,14 +164,12 @@ public class MainActivity extends AppCompatActivity {
         playButton.setText("Play");
         handler.removeCallbacksAndMessages(null);
 
-        // Stop and release all active MediaPlayers
         for (MediaPlayer player : activePlayers) {
             if (player.isPlaying()) player.stop();
             player.release();
         }
         activePlayers.clear();
 
-        // Stop Atmosengine and Padengine audio
         Atmosengine.stopAudio();
         Padengine.stopAudio();
     }
@@ -126,15 +188,15 @@ public class MainActivity extends AppCompatActivity {
             mediaPlayer.setDataSource(this, uri);
             mediaPlayer.setOnPreparedListener(mp -> mp.start());
             mediaPlayer.setOnCompletionListener(mp -> {
-                activePlayers.remove(mp); // Remove from active list when playback is complete
+                activePlayers.remove(mp);
                 mp.release();
                 if (isPlaying) {
-                    playNextNoteWithTimedDelays(); // Continue with the next note if still playing
+                    playNextNoteWithTimedDelays();
                 }
             });
             mediaPlayer.prepareAsync();
 
-            activePlayers.add(mediaPlayer); // Add to active list after preparation
+            activePlayers.add(mediaPlayer);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -147,6 +209,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stopPlayback(); // Stop playback and release resources when the activity is destroyed
+        stopPlayback();
     }
 }

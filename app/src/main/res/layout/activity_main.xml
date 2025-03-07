@@ -2,44 +2,78 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/grey"
+    android:background="@drawable/trees"
     android:orientation="vertical"
     android:gravity="center">
-
-    <LinearLayout
-        android:id="@+id/visualizer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:orientation="vertical" />
-
-    <SeekBar
-        android:id="@+id/atmos_volume"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:max="100" />
-
-    <SeekBar
-        android:id="@+id/pad_volume"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:max="100" />
-
-    <SeekBar
-        android:id="@+id/note_volume"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:max="100" />
-
 
 
     <Button
         android:id="@+id/button"
+        android:background="@android:color/transparent"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="Cascodia cod"
+        android:fontFamily="@font/ubuntu_light"
         android:text="PLAY" />
 
+    <Button
+        android:id="@+id/changeemo"
+        android:background="@android:color/transparent"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_light"
+        android:text="Change Emotion/Mood" />
 
+    <Button
+        android:id="@+id/changepad"
+        android:background="@android:color/transparent"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_light"
+        android:text="Change MusicScape" />
+
+
+
+    <Button
+        android:id="@+id/changeinst"
+        android:background="@android:color/transparent"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_light"
+        android:text="Change Instrument" />
+
+    <Button
+        android:id="@+id/changeatmos"
+        android:background="@android:color/transparent"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_light"
+        android:text="Change Atmosphere" />
+
+    <Button
+        android:id="@+id/exit"
+        android:background="@android:color/transparent"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_light"
+        android:text="EXIT " />
 
 
 </LinearLayout>

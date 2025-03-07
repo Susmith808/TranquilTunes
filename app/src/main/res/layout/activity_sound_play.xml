@@ -9,6 +9,7 @@
     <!-- Play Button -->
     <Button
         android:id="@+id/playgen"
+        android:background="@drawable/button_background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Play" />
