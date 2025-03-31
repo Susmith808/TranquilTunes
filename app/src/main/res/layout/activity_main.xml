@@ -6,7 +6,6 @@
     android:orientation="vertical"
     android:gravity="center">
 
-
     <Button
         android:id="@+id/button"
         android:background="@android:color/transparent"
@@ -40,8 +39,6 @@
         android:fontFamily="@font/ubuntu_light"
         android:text="Change MusicScape" />
 
-
-
     <Button
         android:id="@+id/changeinst"
         android:background="@android:color/transparent"
@@ -65,6 +62,17 @@
         android:text="Change Atmosphere" />
 
     <Button
+        android:id="@+id/navigateSolfeggio"
+        android:background="@android:color/transparent"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_light"
+        android:text="Integrate with Solfeggio" />
+
+    <Button
         android:id="@+id/exit"
         android:background="@android:color/transparent"
         android:textColor="#FFFFFF"
@@ -74,6 +82,5 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/ubuntu_light"
         android:text="EXIT " />
-
 
 </LinearLayout>

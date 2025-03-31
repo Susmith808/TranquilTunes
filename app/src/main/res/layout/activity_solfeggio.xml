@@ -1,0 +1,110 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/ic_breathing">
+
+    <!-- State Text -->
+    <TextView
+        android:id="@+id/stateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="160dp"
+        android:layout_y="35dp"
+        android:text="State: Relaxed"
+        android:textColor="#00796B"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <!-- Beat Frequency Control -->
+    <TextView
+        android:id="@+id/beatFreqText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="159dp"
+        android:layout_y="302dp"
+        android:text="Beat Frequency: 10 Hz"
+        android:textColor="#004D40"
+        android:textSize="18sp" />
+
+    <!-- Session Duration Control -->
+    <SeekBar
+        android:id="@+id/beatSeekBar"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_x="117dp"
+        android:layout_y="350dp"
+        android:max="30"
+        android:progress="10" />
+
+    <TextView
+        android:id="@+id/sessionDurationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="142dp"
+        android:layout_y="650dp"
+        android:text="Session Duration: 10 minutes"
+        android:textColor="#004D40"
+        android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/setDurationButton"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_x="14dp"
+        android:layout_y="618dp"
+        android:contentDescription="Set Duration"
+        android:src="@drawable/clock" />
+
+    <!-- Play Button -->
+
+    <!-- Nature and Ambient Sound Controls -->
+    <ImageView
+        android:id="@+id/playButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_x="161dp"
+        android:layout_y="162dp"
+        android:contentDescription="Play"
+        android:src="@drawable/play" />
+
+    <ImageView
+        android:id="@+id/selectSoundButton"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_x="14dp"
+        android:layout_y="370dp"
+        android:contentDescription="Select Nature Sound"
+        android:src="@drawable/togoff" />
+
+    <ImageView
+        android:id="@+id/playAmbientButton"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_x="14dp"
+        android:layout_y="470dp"
+        android:contentDescription="Select Ambient Sound"
+        android:src="@drawable/togoff" />
+
+    <!-- Nature and Ambient Toggle Buttons -->
+    <ImageView
+        android:id="@+id/NatureToggleBtn"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_x="104dp"
+        android:layout_y="370dp"
+        android:contentDescription="Nature Sound Toggle"
+        android:src="@drawable/togon"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/AmbientToggleBtn"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_x="104dp"
+        android:layout_y="470dp"
+        android:contentDescription="Ambient Sound Toggle"
+        android:src="@drawable/togon"
+        android:visibility="gone" />
+
+</AbsoluteLayout>

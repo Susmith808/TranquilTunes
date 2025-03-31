@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/delta"
+        android:title="Delta (Deep Sleep)"
+        android:icon="@android:drawable/ic_menu_compass"/>
+    <item android:id="@+id/theta"
+        android:title="Theta (Creativity)"
+        android:icon="@android:drawable/ic_menu_compass"/>
+    <item android:id="@+id/alpha"
+        android:title="Alpha (Mindfulness)"
+        android:icon="@android:drawable/ic_menu_compass"/>
+    <item android:id="@+id/beta"
+        android:title="Beta (Focus)"
+        android:icon="@android:drawable/ic_menu_compass"/>
+    <item android:id="@+id/gamma"
+        android:title="Gamma (Higher Activity)"
+        android:icon="@android:drawable/ic_menu_compass"/>
+</menu>

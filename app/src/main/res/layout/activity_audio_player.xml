@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/ic_breathing">
+
+    <ImageView
+        android:id="@+id/playButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_x="161dp"
+        android:layout_y="162dp"
+        android:contentDescription="Play Button"
+        android:src="@drawable/play" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="150dp"
+        android:layout_y="130dp"
+        android:visibility="gone"
+        style="?android:attr/progressBarStyleLarge" />
+
+    <SeekBar
+        android:id="@+id/volumeSeekBar"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_x="117dp"
+        android:layout_y="350dp"
+        android:max="100"
+        android:progress="100" />
+
+    <TextView
+        android:id="@+id/volumeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="130dp"
+        android:layout_y="250dp"
+        android:text="Volume: 100%"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/setSessionButton"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_x="14dp"
+        android:layout_y="618dp"
+        android:src="@drawable/clock"
+        android:contentDescription="Set Session" />
+
+    <ImageView
+        android:id="@+id/fadeToggleButton"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_x="14dp"
+        android:layout_y="370dp"
+        android:src="@drawable/up"
+        android:contentDescription="Toggle Fade" />
+
+    <ImageView
+        android:id="@+id/showSessionButton"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_x="14dp"
+        android:layout_y="470dp"
+        android:src="@drawable/headphonelogo"
+        android:contentDescription="Show Session Controls" />
+
+    <LinearLayout
+        android:id="@+id/sessionLayout"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_x="40dp"
+        android:layout_y="370dp"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:background="@color/blue"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/sessionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Session Duration: Not Set"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/fadeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fade Effect: Off"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+
+</AbsoluteLayout>

@@ -17,6 +17,73 @@
         android:theme="@style/Theme.YourApp.NoActionBar.FullScreen"
         tools:targetApi="31">
         <activity
+            android:name=".AudioItem"
+            android:exported="false" />
+        <activity
+            android:name=".NatureSoundPicker"
+            android:exported="false" />
+        <activity
+            android:name=".SessionTimerDialog"
+            android:exported="false" />
+        <activity
+            android:name=".BinauralBeat"
+            android:exported="false" />
+        <activity
+            android:name=".BeatListAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".NoiseGenerator"
+            android:exported="false" />
+        <activity
+            android:name=".NoiseListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AudioPlayerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AudioModel"
+            android:exported="false" />
+        <activity
+            android:name=".AudioAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".Naturesounds"
+            android:exported="false" />
+        <activity
+            android:name=".MusicService"
+            android:exported="false" />
+        <activity
+            android:name=".SolfeggioListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NoiseGeneratorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".IsochronicToneListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".IsochronicTonePlayerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".IsochronicToneGenerator"
+            android:exported="false" />
+        <activity
+            android:name=".BinauralBeatsListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BinauralPresets"
+            android:exported="false" />
+        <activity
+            android:name=".Solfeggio"
+            android:exported="false" />
+        <activity
+            android:name=".BreathingTrackerActivity"
+            android:exported="false" />
+        <activity android:name=".ResultActivity" />
+        <activity
+            android:name=".QuestionnaireActivity"
+            android:exported="false" />
+        <activity
             android:name=".BinauralBeatsActivity"
             android:exported="false" />
         <activity
@@ -89,6 +156,9 @@
             android:name=".Soundscape"
             android:exported="true"
             android:label="Soundscape" />
+        <activity
+            android:name=".Breathdetector"
+            android:exported="false" />
     </application>
 
 </manifest>
