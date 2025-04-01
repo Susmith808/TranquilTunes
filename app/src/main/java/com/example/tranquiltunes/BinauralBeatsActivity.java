@@ -43,10 +43,10 @@ public class BinauralBeatsActivity extends AppCompatActivity {
     private Handler sessionHandler = new Handler();
     private Runnable sessionRunnable;
 
-    private SeekBar beatSeekBar;
+    private SeekBar beatSeekBar, natureVolumeSeekBar, ambientVolumeSeekBar;
     private TextView beatFreqText, stateText, sessionDurationText;
     private ImageView playGifButton, setDurationGifButton, playNatureGifButton, playAmbientGifButton;
-    private ImageView  natureToggleButton, ambientToggleButton;
+    private ImageView natureToggleButton, ambientToggleButton;
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
     private ProgressDialog progressDialog;
@@ -79,6 +79,10 @@ public class BinauralBeatsActivity extends AppCompatActivity {
         playAmbientGifButton = findViewById(R.id.playAmbientButton);
         natureToggleButton = findViewById(R.id.NatureToggleBtn);
         ambientToggleButton = findViewById(R.id.AmbientToggleBtn);
+
+        // Volume control sliders
+        natureVolumeSeekBar = findViewById(R.id.natureVolumeSeekBar);
+        ambientVolumeSeekBar = findViewById(R.id.ambientVolumeSeekBar);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -116,6 +120,39 @@ public class BinauralBeatsActivity extends AppCompatActivity {
 
         natureToggleButton.setOnClickListener(v -> handleToggle(natureToggleButton, true));
         ambientToggleButton.setOnClickListener(v -> handleToggle(ambientToggleButton, false));
+
+        // Volume control listeners
+        natureVolumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (natureMediaPlayer != null) {
+                    float volume = progress / 100f;
+                    natureMediaPlayer.setVolume(volume, volume);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+
+        ambientVolumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (ambientMediaPlayer != null) {
+                    float volume = progress / 100f;
+                    ambientMediaPlayer.setVolume(volume, volume);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
     }
 
     private void showSessionDurationDialog() {
@@ -141,7 +178,6 @@ public class BinauralBeatsActivity extends AppCompatActivity {
         // Show the dialog
         builder.create().show();
     }
-
 
     private void stopBinauralBeats() {
         if (audioTrack != null) {
@@ -204,7 +240,6 @@ public class BinauralBeatsActivity extends AppCompatActivity {
             sessionHandler.postDelayed(sessionRunnable, sessionDuration * 60 * 1000);
         }
     }
-
 
     private SeekBar.OnSeekBarChangeListener createSeekBarListener(int minValue) {
         return new SeekBar.OnSeekBarChangeListener() {

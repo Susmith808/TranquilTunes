@@ -38,8 +38,8 @@ public class Solfeggio extends AppCompatActivity {
     private float volume = 1.0f;
 
     private TextView stateText, beatFreqText, sessionDurationText;
-    private ImageView setDurationButton, playButton, selectSoundButton, playAmbientButton, natureToggleButton, ambientToggleButton;
-    private SeekBar beatSeekBar;
+    private ImageView freq,setDurationButton, playButton, selectSoundButton, playAmbientButton, natureToggleButton, ambientToggleButton;
+    private SeekBar beatSeekBar, natureVolumeSeekBar, ambientVolumeSeekBar;
 
     private DatabaseReference databaseReference;
     private ProgressDialog progressDialog;
@@ -52,7 +52,7 @@ public class Solfeggio extends AppCompatActivity {
 
         String frequencyString = getIntent().getStringExtra("frequency");
         selectedFrequency = Integer.parseInt(frequencyString.split(" ")[0]);
-
+        freq=findViewById(R.id.freq);
         stateText = findViewById(R.id.stateText);
         beatFreqText = findViewById(R.id.beatFreqText);
         sessionDurationText = findViewById(R.id.sessionDurationText);
@@ -64,6 +64,10 @@ public class Solfeggio extends AppCompatActivity {
         playAmbientButton = findViewById(R.id.playAmbientButton);
         natureToggleButton = findViewById(R.id.NatureToggleBtn);
         ambientToggleButton = findViewById(R.id.AmbientToggleBtn);
+
+        // Volume Control Sliders
+        natureVolumeSeekBar = findViewById(R.id.natureVolumeSeekBar);
+        ambientVolumeSeekBar = findViewById(R.id.ambientVolumeSeekBar);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         progressDialog = new ProgressDialog(this);
@@ -94,10 +98,10 @@ public class Solfeggio extends AppCompatActivity {
         playButton.setOnClickListener(v -> {
             if (!isPlaying) {
                 playFrequency(selectedFrequency);
-                playButton.setImageResource(R.drawable.tt); // Change to stop icon
+                playButton.setImageResource(R.drawable.pause100); // Change to stop icon
             } else {
                 stopFrequency();
-                playButton.setImageResource(R.drawable.play); // Change to play icon
+                playButton.setImageResource(R.drawable.play100); // Change to play icon
             }
         });
 
@@ -107,10 +111,140 @@ public class Solfeggio extends AppCompatActivity {
         natureToggleButton.setOnClickListener(v -> handleToggle(natureToggleButton, true));
         ambientToggleButton.setOnClickListener(v -> handleToggle(ambientToggleButton, false));
 
-        // Initially hide toggle buttons
+        // Volume Controls for Nature and Ambient
+        natureVolumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (natureMediaPlayer != null) {
+                    float volume = progress / 100f;
+                    natureMediaPlayer.setVolume(volume, volume);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+
+        ambientVolumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (ambientMediaPlayer != null) {
+                    float volume = progress / 100f;
+                    ambientMediaPlayer.setVolume(volume, volume);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+
         natureToggleButton.setVisibility(View.GONE);
         ambientToggleButton.setVisibility(View.GONE);
+        natureVolumeSeekBar.setVisibility(View.GONE);
+        ambientVolumeSeekBar.setVisibility(View.GONE);
     }
+
+    private void handleToggle(ImageView button, boolean isNatureSound) {
+        MediaPlayer player = isNatureSound ? natureMediaPlayer : ambientMediaPlayer;
+
+        if (player == null) {
+            Toast.makeText(this, "Please select a sound first.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!player.isPlaying()) {
+            player.start();
+            button.setImageResource(R.drawable.pause50); // Change to pause icon
+        } else {
+            player.pause();
+            button.setImageResource(R.drawable.play50); // Change to play icon
+        }
+    }
+
+
+    private void stopFrequency() {
+        isPlaying = false;
+
+        if (audioThread != null) {
+            try {
+                audioThread.join(); // Ensure the audio generation thread is stopped
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            audioThread = null;
+        }
+
+        if (audioTrack != null) {
+            audioTrack.stop();
+            audioTrack.release();
+            audioTrack = null;
+        }
+
+        stateText.setText("State: Frequency Stopped");
+    }
+
+    private void playFrequency(int frequency) {
+        isPlaying = true;
+        int sampleRate = 44100;
+        int bufferSize = AudioTrack.getMinBufferSize(sampleRate, AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT);
+
+        audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, sampleRate,
+                AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT,
+                bufferSize, AudioTrack.MODE_STREAM);
+
+        audioTrack.setVolume(volume);
+        audioTrack.play();
+
+        // Create and start the audio generation thread
+        audioThread = new Thread(() -> {
+            short[] buffer = new short[bufferSize];
+            double phase = 0;
+            double increment = 2 * Math.PI * frequency / sampleRate;
+
+            while (isPlaying) {
+                for (int i = 0; i < bufferSize; i++) {
+                    buffer[i] = (short) (Math.sin(phase) * 32767);
+                    phase += increment;
+                    if (phase > 2 * Math.PI) phase -= 2 * Math.PI;
+                }
+                audioTrack.write(buffer, 0, bufferSize);
+            }
+        });
+
+        audioThread.start();
+        stateText.setText("State: Playing Frequency - " + frequency + " Hz");
+    }
+
+    private void showDurationPicker() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_number_picker, null);
+        builder.setView(dialogView);
+
+        NumberPicker numberPicker = dialogView.findViewById(R.id.numberPicker);
+        ImageView confirmButton = dialogView.findViewById(R.id.confirmButton);
+
+        // Configure NumberPicker
+        numberPicker.setMinValue(1);
+        numberPicker.setMaxValue(30);
+        numberPicker.setValue(sessionDuration);
+
+        AlertDialog dialog = builder.create();
+
+        confirmButton.setOnClickListener(v -> {
+            sessionDuration = numberPicker.getValue();
+            sessionDurationText.setText("Session Duration: " + sessionDuration + " minutes");
+            dialog.dismiss();
+        });
+
+        dialog.show();
+    }
+
 
     private void fetchSoundsFromFirebase(String category, boolean isNatureSound) {
         progressDialog.show();
@@ -155,8 +289,10 @@ public class Solfeggio extends AppCompatActivity {
 
                     if (isNatureSound) {
                         natureToggleButton.setVisibility(View.VISIBLE);
+                        natureVolumeSeekBar.setVisibility(View.VISIBLE);
                     } else {
                         ambientToggleButton.setVisibility(View.VISIBLE);
+                        ambientVolumeSeekBar.setVisibility(View.VISIBLE);
                     }
                 })
                 .show();
@@ -189,95 +325,4 @@ public class Solfeggio extends AppCompatActivity {
             ambientMediaPlayer = player;
         }
     }
-
-    private void showDurationPicker() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_number_picker, null);
-        builder.setView(dialogView);
-
-        NumberPicker numberPicker = dialogView.findViewById(R.id.numberPicker);
-        ImageView confirmButton = dialogView.findViewById(R.id.confirmButton);
-
-        numberPicker.setMinValue(1);
-        numberPicker.setMaxValue(30);
-        numberPicker.setValue(sessionDuration);
-
-        AlertDialog dialog = builder.create();
-
-        confirmButton.setOnClickListener(v -> {
-            sessionDuration = numberPicker.getValue();
-            sessionDurationText.setText("Session Duration: " + sessionDuration + " minutes");
-            dialog.dismiss();
-        });
-
-        dialog.show();
-    }
-
-    private void handleToggle(ImageView button, boolean isNatureSound) {
-        MediaPlayer player = isNatureSound ? natureMediaPlayer : ambientMediaPlayer;
-
-        if (player == null) {
-            Toast.makeText(this, "Please select a sound first.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (!player.isPlaying()) {
-            player.start();
-            button.setImageResource(R.drawable.pause);
-        } else {
-            player.pause();
-            button.setImageResource(R.drawable.play);
-        }
-    }
-
-    private void playFrequency(int frequency) {
-        isPlaying = true;
-        int sampleRate = 44100;
-        int bufferSize = AudioTrack.getMinBufferSize(sampleRate, AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT);
-
-        audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, sampleRate,
-                AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT,
-                bufferSize, AudioTrack.MODE_STREAM);
-
-        audioTrack.setVolume(volume);
-        audioTrack.play();
-
-        audioThread = new Thread(() -> {
-            short[] buffer = new short[bufferSize];
-            double phase = 0;
-            double increment = 2 * Math.PI * frequency / sampleRate;
-
-            while (isPlaying) {
-                for (int i = 0; i < bufferSize; i++) {
-                    buffer[i] = (short) (Math.sin(phase) * 32767);
-                    phase += increment;
-                    if (phase > 2 * Math.PI) phase -= 2 * Math.PI;
-                }
-                audioTrack.write(buffer, 0, bufferSize);
-            }
-        });
-
-        audioThread.start();
-    }
-
-    private void stopFrequency() {
-        isPlaying = false;
-
-        if (audioThread != null) {
-            try {
-                audioThread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            audioThread = null;
-        }
-
-        if (audioTrack != null) {
-            audioTrack.stop();
-            audioTrack.release();
-            audioTrack = null;
-        }
-    }
 }
-
-

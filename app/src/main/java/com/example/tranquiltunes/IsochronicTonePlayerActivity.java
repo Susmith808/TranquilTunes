@@ -116,7 +116,7 @@ public class IsochronicTonePlayerActivity extends AppCompatActivity {
     private void startTone() {
         isPlaying = true;
         toneGenerator.playIsochronicTone(toneFrequency, pulseRate, volume);
-        playToggleButton.setImageResource(R.drawable.pause); // Change icon to "Pause"
+        playToggleButton.setImageResource(R.drawable.pause100); // Change icon to "Pause"
 
         stopRunnable = this::stopTone;
         handler.postDelayed(stopRunnable, sessionDuration * 60 * 1000);
@@ -126,17 +126,22 @@ public class IsochronicTonePlayerActivity extends AppCompatActivity {
     private void stopTone() {
         isPlaying = false;
         toneGenerator.stopIsochronicTone();
-        playToggleButton.setImageResource(R.drawable.play); // Change icon back to "Play"
+        playToggleButton.setImageResource(R.drawable.play100); // Change icon back to "Play"
         handler.removeCallbacks(stopRunnable);
     }
 
     // Session Picker Dialog
     private void showSessionPickerDialog() {
-        Dialog dialog = new Dialog(this);
+        Dialog dialog = new Dialog(IsochronicTonePlayerActivity.this);
         dialog.setContentView(R.layout.dialog_number_picker);
 
         NumberPicker numberPicker = dialog.findViewById(R.id.numberPicker);
         ImageView confirmButton = dialog.findViewById(R.id.confirmButton);
+
+        if (numberPicker == null || confirmButton == null) {
+            dialog.dismiss();
+            return;
+        }
 
         int[] sessionOptions = {1, 2, 3, 4, 5, 10, 15, 20, 30, 45, 60};
         String[] sessionLabels = new String[sessionOptions.length];

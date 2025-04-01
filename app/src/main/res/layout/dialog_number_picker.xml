@@ -1,49 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="20dp"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:gravity="center_horizontal">
 
+    <!-- Title Text (Optional, if you want to add a title for the dialog) -->
     <TextView
+        android:id="@+id/dialogTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Select Session Duration"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:paddingBottom="10dp" />
+        android:layout_marginBottom="15dp" />
 
+    <!-- Number Picker to select duration -->
     <NumberPicker
         android:id="@+id/numberPicker"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:textSize="20sp"/>
 
-    <Button
+    <!-- Confirm Button -->
+    <ImageView
         android:id="@+id/confirmButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Set Session"
-        android:backgroundTint="@android:color/holo_blue_dark"
-        android:textColor="@android:color/white"
-        android:layout_marginTop="10dp" />
-    <!-- Session Duration Display -->
-    <TextView
-        android:id="@+id/sessionDurationText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Session Duration: Not Set"
-        android:textSize="16sp"
-        android:padding="5dp" />
-
-    <!-- Button to Open Duration Picker -->
-    <Button
-        android:id="@+id/setDurationButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Set Session Duration"
-        android:padding="10dp"
-        android:layout_marginTop="10dp" />
-
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/play50"
+        android:contentDescription="Confirm Button"
+        android:layout_gravity="center" />
 
 </LinearLayout>

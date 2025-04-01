@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:background="@drawable/ic_breathing">
+    android:background="@drawable/grad">
 
     <!-- Isochronic Tone Title -->
 
@@ -16,39 +16,48 @@
         android:id="@+id/toneTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="117dp"
-        android:layout_y="53dp"
+        android:layout_x="64dp"
+        android:layout_y="35dp"
         android:text="Isochronic Tone"
         android:textColor="#00796B"
         android:textSize="20sp"
         android:textStyle="bold" />
 
+    <SeekBar
+        android:id="@+id/pulseRateSeekBar"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:layout_x="205dp"
+        android:layout_y="312dp"
+        android:max="30"
+        android:progress="10"
+        android:rotation="270" />
+
     <TextView
         android:id="@+id/pulseTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="54dp"
-        android:layout_y="445dp"
+        android:layout_x="250dp"
+        android:layout_y="534dp"
         android:text="Pulse Rate: 10 Hz"
         android:textColor="#004D40"
         android:textSize="16sp" />
 
-    <SeekBar
-        android:id="@+id/pulseRateSeekBar"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_x="78dp"
-        android:layout_y="527dp"
-        android:max="30"
-        android:min="1"
-        android:progress="10" />
+    <ImageView
+        android:id="@+id/freq"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_x="295dp"
+        android:layout_y="450dp"
+        android:contentDescription="Select Nature Sound"
+        android:src="@drawable/pulse100" />
 
     <TextView
         android:id="@+id/volumeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="45dp"
-        android:layout_y="294dp"
+        android:layout_x="10dp"
+        android:layout_y="534dp"
         android:text="Volume: 0.5"
         android:textColor="#004D40"
         android:textSize="16sp" />
@@ -56,43 +65,53 @@
     <SeekBar
         android:id="@+id/volumeSeekBar"
         android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_x="74dp"
-        android:layout_y="346dp"
-        android:max="100"
-        android:progress="50" />
-
-    <ImageView
-        android:id="@+id/setSessionButton"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_x="14dp"
-        android:layout_y="618dp"
-        android:src="@drawable/clock"
-        android:contentDescription="Set Session" />
+        android:layout_height="30dp"
+        android:layout_x="-87dp"
+        android:layout_y="312dp"
+        android:max="30"
+        android:progress="10"
+        android:rotation="270" />
 
     <!-- Session Duration Display -->
 
     <!-- Play Toggle Button -->
 
+    <ImageView
+        android:id="@+id/setSessionButton"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_x="153dp"
+        android:layout_y="590dp"
+        android:contentDescription="Set Session"
+        android:src="@drawable/timer100" />
+
     <TextView
         android:id="@+id/sessionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="100dp"
-        android:layout_y="630dp"
+        android:layout_x="118dp"
+        android:layout_y="674dp"
         android:text="Session Duration: 5 min"
         android:textColor="#004D40"
         android:textSize="16sp"
         android:textStyle="bold" />
 
     <ImageView
+
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_x="10dp"
+        android:layout_y="450dp"
+
+        android:src="@drawable/vol100" />
+
+    <ImageView
         android:id="@+id/playToggleButton"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_x="161dp"
-        android:layout_y="162dp"
-        android:src="@drawable/play"
-        android:contentDescription="Play" />
+        android:layout_x="140dp"
+        android:layout_y="80dp"
+        android:contentDescription="Play"
+        android:src="@drawable/play100" />
 
 </AbsoluteLayout>
