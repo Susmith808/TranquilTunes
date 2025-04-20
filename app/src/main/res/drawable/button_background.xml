@@ -1,4 +1,8 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#80FFFFFF" /> <!-- #80FF0000 is red with 50% opacity -->
-    <corners android:radius="8dp" /> <!-- Optional: round the corners -->
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <corners android:radius="20dp"/> <!-- Adjust corner radius here -->
+    <solid android:color="#6200EE"/> <!-- Change color if needed -->
+    <padding android:left="10dp" android:top="10dp" android:right="10dp" android:bottom="10dp"/>
 </shape>

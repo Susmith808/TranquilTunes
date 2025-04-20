@@ -1,29 +1,27 @@
 package com.example.tranquiltunes;
 
-import android.media.AudioFormat;
-import android.media.AudioManager;
-import android.media.AudioTrack;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import java.util.Random;
+import androidx.fragment.app.DialogFragment;
 
-public class NoiseGeneratorActivity extends AppCompatActivity {
+public class NoiseGeneratorActivity extends AppCompatActivity implements SessionTimerDialog.TimerListener {
 
-    private static final int SAMPLE_RATE = 44100;
-    private AudioTrack audioTrack;
     private boolean isPlaying = false;
-    private Thread noiseThread;
-    private String noiseType = "whitenoise";
+    private String noiseType = "White Noise";
     private float volumeLevel = 1.0f;
+    private Handler handler = new Handler();
+    private Runnable stopRunnable;
+    private NoiseGenerator noiseGenerator;
 
-    private ImageView playToggleBtn;
+    private ImageView playToggleBtn, timerBtn;
     private SeekBar volumeSlider;
-    private TextView volumeTextView, stateTextView;
+    private TextView volumeTextView, timerTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,23 +31,25 @@ public class NoiseGeneratorActivity extends AppCompatActivity {
         playToggleBtn = findViewById(R.id.playToggleBtn);
         volumeSlider = findViewById(R.id.volume_slider);
         volumeTextView = findViewById(R.id.tv_volume);
-        stateTextView = findViewById(R.id.stateText);
+        timerBtn = findViewById(R.id.timerBtn);
+        timerTextView = findViewById(R.id.timerTextView);
 
+        noiseGenerator = new NoiseGenerator(noiseType);
 
         playToggleBtn.setOnClickListener(v -> toggleNoise());
-        
+        timerBtn.setOnClickListener(v -> showTimerDialog());
 
         volumeSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 volumeLevel = progress / 100.0f;
                 volumeTextView.setText("Volume: " + progress + "%");
-                if (audioTrack != null) {
-                    audioTrack.setStereoVolume(volumeLevel, volumeLevel);
-                }
+                noiseGenerator.setVolume(volumeLevel);
             }
+
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {}
+
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
@@ -58,72 +58,46 @@ public class NoiseGeneratorActivity extends AppCompatActivity {
     private void toggleNoise() {
         if (isPlaying) {
             stopNoise();
-            playToggleBtn.setImageResource(R.drawable.play);
+            playToggleBtn.setImageResource(R.drawable.play100);
         } else {
-            playNoise();
-            playToggleBtn.setImageResource(R.drawable.pause);
-        }
-    }
-
-    private void showSoundPicker() {
-        String[] soundOptions = {"White Noise", "Pink Noise", "Brown Noise"};
-        new AlertDialog.Builder(this)
-                .setTitle("Select Noise Type")
-                .setItems(soundOptions, (dialog, which) -> {
-                    noiseType = soundOptions[which].toLowerCase().replace(" ", "");
-                    stateTextView.setText("State: " + soundOptions[which]);
-                })
-                .show();
-    }
-
-    private void playNoise() {
-        stopNoise();
-        int bufferSize = AudioTrack.getMinBufferSize(SAMPLE_RATE,
-                AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT);
-        audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, SAMPLE_RATE,
-                AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT,
-                bufferSize, AudioTrack.MODE_STREAM);
-        audioTrack.setStereoVolume(volumeLevel, volumeLevel);
-
-        noiseThread = new Thread(() -> {
-            short[] buffer = new short[bufferSize];
-            Random random = new Random();
+            noiseGenerator.start();
             isPlaying = true;
-            audioTrack.play();
-            while (isPlaying) {
-                for (int i = 0; i < buffer.length; i++) {
-                    buffer[i] = (short) (generateNoiseSample(random) * Short.MAX_VALUE);
-                }
-                audioTrack.write(buffer, 0, buffer.length);
-            }
-        });
-        noiseThread.start();
+            playToggleBtn.setImageResource(R.drawable.pause100);
+        }
     }
 
-    private double generateNoiseSample(Random random) {
-        switch (noiseType) {
-            case "pinknoise": return (random.nextGaussian() * 0.5);
-            case "brownnoise": return (random.nextDouble() * 0.2 - 0.1);
-            default: return (random.nextDouble() * 2 - 1); // White Noise
+    private void showTimerDialog() {
+        DialogFragment timerDialog = new SessionTimerDialog();
+        timerDialog.show(getSupportFragmentManager(), "session_timer");
+    }
+
+    @Override
+    public void onTimeSelected(int minutes) {
+        Log.d("Timer", "Session timer set for " + minutes + " minutes.");
+        timerTextView.setText("Timer: " + minutes + " min");
+
+        if (stopRunnable != null) {
+            handler.removeCallbacks(stopRunnable); // Ensure no previous timer is running
         }
+
+        stopRunnable = () -> {
+            Log.d("Timer", "Stopping noise after " + minutes + " minutes.");
+            stopNoise();
+        };
+
+        handler.postDelayed(stopRunnable, minutes * 60 * 1000); // Convert minutes to milliseconds
     }
 
     private void stopNoise() {
         isPlaying = false;
-        if (audioTrack != null) {
-            audioTrack.stop();
-            audioTrack.release();
-            audioTrack = null;
-        }
-        if (noiseThread != null) {
-            noiseThread.interrupt();
-            noiseThread = null;
-        }
+        noiseGenerator.stopNoise();
+        playToggleBtn.setImageResource(R.drawable.play100);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stopNoise();
+        handler.removeCallbacks(stopRunnable);
+        noiseGenerator.stopNoise();
     }
 }

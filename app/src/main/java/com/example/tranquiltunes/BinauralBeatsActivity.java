@@ -187,7 +187,7 @@ public class BinauralBeatsActivity extends AppCompatActivity {
         }
 
         isPlaying = false;
-        playGifButton.setImageResource(R.drawable.logott);
+        playGifButton.setImageResource(R.drawable.play100);
         Toast.makeText(this, "Binaural beats stopped", Toast.LENGTH_SHORT).show();
 
         // Remove any pending stop callbacks
@@ -231,7 +231,7 @@ public class BinauralBeatsActivity extends AppCompatActivity {
         audioTrack.play();
         isPlaying = true;
 
-        playGifButton.setImageResource(R.drawable.pause);
+        playGifButton.setImageResource(R.drawable.pause100);
         Toast.makeText(this, "Binaural beats started", Toast.LENGTH_SHORT).show();
 
         // Stop the session after the specified duration
@@ -337,10 +337,10 @@ public class BinauralBeatsActivity extends AppCompatActivity {
 
         if (!player.isPlaying()) {
             player.start();
-            button.setImageResource(isNatureSound ? R.drawable.circle_animation : R.drawable.headphonelogo);
+            button.setImageResource(isNatureSound ? R.drawable.pause100 : R.drawable.play100);
         } else {
             player.pause();
-            button.setImageResource(isNatureSound ? R.drawable.headphonelogo : R.drawable.circle_animation);
+            button.setImageResource(isNatureSound ? R.drawable.pause100 : R.drawable.pause100);
         }
     }
 

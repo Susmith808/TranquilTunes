@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gone"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/frequencyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="1dp"
+        android:layout_y="604dp"
+        android:text="Playing: "
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <SeekBar
+        android:id="@+id/volumeControl"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_x="53dp"
+        android:layout_y="350dp"
+        android:max="100"
+        android:rotation="270" />
+
+    <ImageView
+        android:id="@+id/playButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/play100"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_x="140dp"
+        android:layout_y="490dp"/>
+
+</AbsoluteLayout>

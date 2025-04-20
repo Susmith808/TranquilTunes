@@ -38,9 +38,9 @@ public class WelcomeActivity extends AppCompatActivity {
         bbButton = findViewById(R.id.binauralBeatsButton);
 
         // Set Click Listeners
-        natureButton.setOnClickListener(view -> startActivity(new Intent(this, Naturesounds.class)));
+        natureButton.setOnClickListener(view -> startActivity(new Intent(this, bblist.class)));
         startButton.setOnClickListener(view -> startActivity(new Intent(this, Emotion.class)));
-        helpButton.setOnClickListener(view -> startActivity(new Intent(this, BinauralBeatsListActivity.class)));
+        helpButton.setOnClickListener(view -> startActivity(new Intent(this, HelpActivity.class)));
         bbButton.setOnClickListener(view -> startActivity(new Intent(this, QuestionnaireActivity.class)));
         solfeggioButton.setOnClickListener(view -> startActivity(new Intent(this, SolfeggioListActivity.class)));
         isochronicButton.setOnClickListener(view -> startActivity(new Intent(this, IsochronicToneListActivity.class)));

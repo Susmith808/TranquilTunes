@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/grad"
+    android:background="@drawable/gtwo"
     android:padding="16dp">
 
     <!-- State Display -->
@@ -135,7 +135,7 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:contentDescription="Ambient Sound Toggle"
-        android:src="@drawable/play50"
+        android:src="@drawable/play100"
         android:visibility="gone"
         android:layout_x="296dp"
         android:layout_y="450dp"/>

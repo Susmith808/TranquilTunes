@@ -30,8 +30,7 @@
         android:id="@+id/beatIcon"
         android:layout_width="100dp"
         android:layout_height="100dp"
-
-
+        android:background="@drawable/grad"
         android:layout_marginBottom="20dp" />
 
     <Button
@@ -41,11 +40,6 @@
         android:text="Play"
         android:padding="12dp"
         android:textSize="18sp"
-
         android:textColor="#FFFFFF"
         android:layout_marginBottom="10dp" />
-
-
-
-        android:textColor="#FFFFFF" />
 </LinearLayout>

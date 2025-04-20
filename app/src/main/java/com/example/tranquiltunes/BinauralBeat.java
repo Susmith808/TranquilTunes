@@ -1,9 +1,9 @@
 package com.example.tranquiltunes;
 
 public class BinauralBeat {
-    private String name;
-    private String description;
-    private int frequency;
+    private final String name;
+    private final String description;
+    private final int frequency;
 
     public BinauralBeat(String name, String description, int frequency) {
         this.name = name;

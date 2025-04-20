@@ -17,6 +17,18 @@
         android:theme="@style/Theme.YourApp.NoActionBar.FullScreen"
         tools:targetApi="31">
         <activity
+            android:name=".HelpDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HelpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BinauralActivity"
+            android:exported="false" />
+        <activity
+            android:name=".bblist"
+            android:exported="false" />
+        <activity
             android:name=".AudioItem"
             android:exported="false" />
         <activity

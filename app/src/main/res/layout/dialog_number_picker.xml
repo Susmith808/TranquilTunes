@@ -30,7 +30,7 @@
         android:id="@+id/confirmButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/play50"
+        android:src="@drawable/bltick"
         android:contentDescription="Confirm Button"
         android:layout_gravity="center" />
 

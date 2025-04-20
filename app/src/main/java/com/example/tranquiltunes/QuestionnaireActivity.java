@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -17,7 +18,7 @@ public class QuestionnaireActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
     private LinearLayout questionsContainer;
-    private Button submitButton;
+    private ImageButton submitButton;
 
     private final List<Question> questions = new ArrayList<>();
     private List<RadioGroup> radioGroups = new ArrayList<>();

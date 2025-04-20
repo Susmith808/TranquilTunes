@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class BinauralPresets extends AppCompatActivity {
@@ -16,65 +17,99 @@ public class BinauralPresets extends AppCompatActivity {
     private boolean isPlaying = false;
     private static final int SAMPLE_RATE = 44100;
     private int beatFrequency;
+    private Thread audioThread;
+    private Button playButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_binaural_presets);
 
-        // Get data from intent
+        // Get data from intent safely
         String beatName = getIntent().getStringExtra("BEAT_NAME");
-        beatFrequency = getIntent().getIntExtra("BEAT_FREQUENCY", 10);
+        beatFrequency = getIntent().getIntExtra("BEAT_FREQUENCY", -1);
+
+        if (beatName == null || beatFrequency == -1) {
+            Toast.makeText(this, "Error loading binaural beat", Toast.LENGTH_SHORT).show();
+            finish(); // Close activity to prevent crash
+            return;
+        }
 
         // Set the title
         TextView title = findViewById(R.id.beatTitle);
         title.setText(beatName);
 
-        Button playButton = findViewById(R.id.play_button);
+        TextView frequencyText = findViewById(R.id.beatFrequency);
+        frequencyText.setText("Frequency: " + beatFrequency + " Hz");
+
+        playButton = findViewById(R.id.play_button);
         playButton.setOnClickListener(view -> {
             if (isPlaying) {
                 stopBinauralBeat();
-                playButton.setText("Play");
-                playButton.setBackgroundColor(Color.GREEN);
             } else {
                 startBinauralBeat();
-                playButton.setText("Stop");
-                playButton.setBackgroundColor(Color.RED);
             }
         });
     }
 
     private void startBinauralBeat() {
         isPlaying = true;
-        new Thread(() -> {
-            int bufferSize = AudioTrack.getMinBufferSize(SAMPLE_RATE, AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT);
-            audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, SAMPLE_RATE, AudioFormat.CHANNEL_OUT_MONO,
-                    AudioFormat.ENCODING_PCM_16BIT, bufferSize, AudioTrack.MODE_STREAM);
+        runOnUiThread(() -> {
+            playButton.setText("Stop");
+            playButton.setBackgroundColor(Color.RED);
+        });
 
-            short[] buffer = new short[bufferSize];
-            double baseFrequency = 200;
-            double leftFreq = baseFrequency - (beatFrequency / 2.0);
-            double rightFreq = baseFrequency + (beatFrequency / 2.0);
+        audioThread = new Thread(() -> {
+            try {
+                int bufferSize = AudioTrack.getMinBufferSize(SAMPLE_RATE,
+                        AudioFormat.CHANNEL_OUT_STEREO, AudioFormat.ENCODING_PCM_16BIT);
 
-            audioTrack.play();
-
-            for (int i = 0; isPlaying; i++) {
-                double sampleLeft = Math.sin(2 * Math.PI * leftFreq * i / SAMPLE_RATE);
-                double sampleRight = Math.sin(2 * Math.PI * rightFreq * i / SAMPLE_RATE);
-                buffer[i % bufferSize] = (short) ((sampleLeft + sampleRight) / 2 * Short.MAX_VALUE);
-
-                if (i % bufferSize == bufferSize - 1) {
-                    audioTrack.write(buffer, 0, bufferSize);
+                if (bufferSize == AudioTrack.ERROR || bufferSize == AudioTrack.ERROR_BAD_VALUE) {
+                    return;
                 }
+
+                audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, SAMPLE_RATE,
+                        AudioFormat.CHANNEL_OUT_STEREO, AudioFormat.ENCODING_PCM_16BIT,
+                        bufferSize, AudioTrack.MODE_STREAM);
+
+                short[] buffer = new short[bufferSize / 2];
+                double leftFreq = 200 - (beatFrequency / 2.0);
+                double rightFreq = 200 + (beatFrequency / 2.0);
+                double phaseLeft = 0, phaseRight = 0;
+                double incrementLeft = 2 * Math.PI * leftFreq / SAMPLE_RATE;
+                double incrementRight = 2 * Math.PI * rightFreq / SAMPLE_RATE;
+
+                audioTrack.play();
+
+                while (isPlaying) {
+                    for (int i = 0; i < buffer.length; i += 2) {
+                        phaseLeft += incrementLeft;
+                        phaseRight += incrementRight;
+
+                        buffer[i] = (short) (Math.sin(phaseLeft) * Short.MAX_VALUE);
+                        buffer[i + 1] = (short) (Math.sin(phaseRight) * Short.MAX_VALUE);
+                    }
+                    audioTrack.write(buffer, 0, buffer.length);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        }).start();
+        });
+
+        audioThread.start();
     }
 
     private void stopBinauralBeat() {
+        isPlaying = false;
+        runOnUiThread(() -> {
+            playButton.setText("Play");
+            playButton.setBackgroundColor(Color.GREEN);
+        });
+
         if (audioTrack != null) {
-            isPlaying = false;
             audioTrack.stop();
             audioTrack.release();
+            audioTrack = null;
         }
     }
 
